@@ -12,5 +12,7 @@ The only thing required for this tool to work is Python which can be downloaded 
 
 ## How to Use
 
+Clone the repo by inputting the command `https://github.com/crbknight/LOL_Item_Patch_Comparison.git` into your CMD terminal.
+
 After generating two `.csv` files using [this](https://github.com/crbknight/LOL_Item_Analyzer) tool, copy the new patch into the folder called `new_patch` and the old patch into the folder called `old_patch`. Then simply run the code to recieve an `output.txt` file 
 with all of the changes.
