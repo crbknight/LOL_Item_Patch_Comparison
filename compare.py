@@ -2,13 +2,13 @@ import csv
 import os
 
 def load_items(file_path):
-    """Loads item data from a CSV file into a dictionary where key is item name."""
+    # Loads item data from a CSV file into a dictionary where key is item name.
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         return {row['Name']: row for row in reader}
 
 def compare_items(old_items, new_items, stats_columns, output_file):
-    """Compares two dictionaries of items and writes results to a text file."""
+    # Compares two dictionaries of items and writes results to a text file.
     old_item_names = set(old_items.keys())
     new_item_names = set(new_items.keys())
 
@@ -58,7 +58,9 @@ def compare_items(old_items, new_items, stats_columns, output_file):
 
                     # Compare old and new stat values
                     if old_stat_value != new_stat_value:
-                        stat_changes.append(f"{stat}: {old_stat_value} -> {new_stat_value}")
+                        # Append [N] for decrease and [B] for increase
+                        change_flag = "[N] " if new_stat_value < old_stat_value else "[B] "
+                        stat_changes.append(f"{change_flag}{stat}: {old_stat_value} -> {new_stat_value}")
 
                 old_ge = float(old_item['Gold Efficiency'])
                 new_ge = float(new_item['Gold Efficiency'])
@@ -71,13 +73,15 @@ def compare_items(old_items, new_items, stats_columns, output_file):
                         for change in stat_changes:
                             f.write(f"      {change}\n")
                     if old_ge != new_ge:
-                        f.write(f"    Gold Efficiency: {old_ge} -> {new_ge}\n")
+                        # Prepend [N] for decrease and [B] for increase in GE
+                        change_flag_ge = "[N] " if new_ge < old_ge else "[B] "
+                        f.write(f"    Gold Efficiency: {change_flag_ge}{old_ge} -> {new_ge}\n")
         else:
             f.write("No items changed.\n")
 
 
 def find_csv_file(folder):
-    """Find the first CSV file in the specified folder."""
+    #Find the first CSV file in the specified folder.
     for file_name in os.listdir(folder):
         if file_name.endswith('.csv'):
             return os.path.join(folder, file_name)
