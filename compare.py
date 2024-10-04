@@ -58,7 +58,7 @@ def compare_items(old_items, new_items, stats_columns, output_file):
 
                     # Compare old and new stat values
                     if old_stat_value != new_stat_value:
-                        # Append [N] for decrease and [B] for increase
+                        # Append [N] for nerf and [B] for buff
                         change_flag = "[N] " if new_stat_value < old_stat_value else "[B] "
                         stat_changes.append(f"{change_flag}{stat}: {old_stat_value} -> {new_stat_value}")
 
@@ -73,7 +73,7 @@ def compare_items(old_items, new_items, stats_columns, output_file):
                         for change in stat_changes:
                             f.write(f"      {change}\n")
                     if old_ge != new_ge:
-                        # Prepend [N] for decrease and [B] for increase in GE
+                        # Prepend [N] for nerf and [B] for buff in GE
                         change_flag_ge = "[N] " if new_ge < old_ge else "[B] "
                         f.write(f"    Gold Efficiency: {change_flag_ge}{old_ge} -> {new_ge}\n")
         else:
@@ -81,13 +81,12 @@ def compare_items(old_items, new_items, stats_columns, output_file):
 
 
 def find_csv_file(folder):
-    #Find the first CSV file in the specified folder.
+    # Find the first CSV file in the specified folder.
     for file_name in os.listdir(folder):
         if file_name.endswith('.csv'):
             return os.path.join(folder, file_name)
     return None
 
-# Define the stats columns based on your CSV format
 stats_columns = [
     'Attack Damage', 'Abilty Power', 'Attack Speed', 'Ability Haste', 
     'Armor', 'Magic Resist', 'Health', 'Mana', 'Health Regen', 
